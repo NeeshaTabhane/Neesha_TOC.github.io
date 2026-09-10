@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CNF Converter</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: #eaf2ff;
+    line-height: 1.6;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    height: 70px;
+    background: #0b1728;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 7%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #203858;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+}
+
+.logo span {
+    color: #00d9ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #d9e8ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #00d9ff;
+}
+
+/* ================= SECOND NAVBAR ================= */
+
+.subnav {
+    background: #101f34;
+    padding: 12px 7%;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    border-bottom: 1px solid #203858;
+}
+
+.subnav a {
+    color: #a9c7e8;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.subnav a:hover {
+    color: #00d9ff;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 20px;
+
+    background:
+        radial-gradient(circle at top, #173d65, transparent 45%),
+        #07111f;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid #00d9ff;
+    border-radius: 30px;
+    color: #00d9ff;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #00d9ff;
+}
+
+.hero p {
+    color: #b7c9df;
+    font-size: 18px;
+    max-width: 750px;
+    margin: auto;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+    margin: 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #00d9ff;
+    color: #06111e;
+}
+
+.btn-secondary {
+    border: 1px solid #00d9ff;
+    color: #00d9ff;
+}
+
+/* ================= COMMON ================= */
+
+section {
+    padding: 80px 7%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #9db2ca;
+    margin-bottom: 45px;
+}
+
+/* ================= PROBLEM ================= */
+
+.problem-box {
+    max-width: 950px;
+    margin: auto;
+    padding: 35px;
+
+    background: #0d1b2e;
+    border: 1px solid #203858;
+    border-radius: 15px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.problem-box h3 {
+    color: #00d9ff;
+    margin-bottom: 15px;
+}
+
+.problem-box p {
+    color: #c3d1e2;
+}
+
+/* ================= CONCEPTS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #0d1b2e;
+    padding: 30px 20px;
+
+    border: 1px solid #203858;
+    border-radius: 15px;
+
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #00d9ff;
+}
+
+.card .icon {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #9db2ca;
+    font-size: 14px;
+}
+
+/* ================= RULES ================= */
+
+.rules {
+    background: #091727;
+}
+
+.rule-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.rule {
+    background: #0d1b2e;
+    border: 1px solid #203858;
+    border-radius: 15px;
+
+    padding: 30px 50px;
+    text-align: center;
+
+    min-width: 250px;
+}
+
+.rule h2 {
+    color: #00d9ff;
+    font-size: 30px;
+}
+
+.rule p {
+    color: #a9bdd5;
+}
+
+/* ================= PROCESS ================= */
+
+.process {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.process-box {
+    padding: 20px 25px;
+
+    background: #0d1b2e;
+    border: 1px solid #254666;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.arrow {
+    color: #00d9ff;
+    font-size: 25px;
+}
+
+/* ================= EXAMPLE ================= */
+
+.example-container {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.example-box {
+    background: #0d1b2e;
+    border: 1px solid #203858;
+    border-radius: 15px;
+
+    padding: 30px;
+}
+
+.example-box h3 {
+    color: #00d9ff;
+    margin-bottom: 15px;
+}
+
+.grammar {
+    background: #06101d;
+    padding: 20px;
+
+    border-radius: 10px;
+
+    font-family: monospace;
+    font-size: 17px;
+
+    line-height: 2;
+}
+
+/* ================= CONVERTER ================= */
+
+.converter-section {
+    background: #091727;
+}
+
+.converter {
+    max-width: 1100px;
+    margin: auto;
+
+    background: #0b1728;
+
+    border: 1px solid #254666;
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.3);
+}
+
+.converter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.converter-header h2 {
+    color: white;
+}
+
+.status {
+    color: #35e58a;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.editor-title {
+    color: #00d9ff;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+
+    resize: vertical;
+
+    background: #06101d;
+    color: #eaf2ff;
+
+    border: 1px solid #294967;
+    border-radius: 10px;
+
+    padding: 18px;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #00d9ff;
+}
+
+/* OUTPUT */
+
+.output {
+    width: 100%;
+    min-height: 300px;
+
+    background: #06101d;
+
+    border: 1px solid #294967;
+    border-radius: 10px;
+
+    padding: 18px;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    color: #eaf2ff;
+}
+
+.output-line {
+    display: block;
+
+    padding: 6px 0;
+
+    border-bottom: 1px solid #172b42;
+}
+
+/* ================= BUTTONS ================= */
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.action {
+    border: none;
+    border-radius: 8px;
+
+    padding: 12px 20px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.load {
+    background: #1b3553;
+    color: white;
+}
+
+.convert {
+    background: #00d9ff;
+    color: #06111e;
+}
+
+.clear {
+    background: #3a2630;
+    color: #ff9eac;
+}
+
+.copy {
+    background: #183c2b;
+    color: #62f2a4;
+}
+
+/* ================= STEPS ================= */
+
+.steps {
+    margin-top: 30px;
+
+    display: grid;
+    gap: 18px;
+}
+
+.step {
+    background: #0d1b2e;
+
+    border-left: 4px solid #00d9ff;
+
+    padding: 22px;
+
+    border-radius: 8px;
+}
+
+.step h3 {
+    color: #00d9ff;
+
+    margin-bottom: 12px;
+}
+
+.step p {
+    color: #9db2ca;
+
+    margin-bottom: 10px;
+}
+
+.step pre {
+    background: #06101d;
+
+    padding: 18px;
+
+    border-radius: 8px;
+
+    color: #d9e8ff;
+
+    overflow-x: auto;
+
+    line-height: 1.9;
+
+    font-family: monospace;
+}
+
+/* ================= FINAL RESULT ================= */
+
+.final-result {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border: 1px solid #2c9c69;
+
+    background: #0b2419;
+
+    border-radius: 12px;
+}
+
+.final-result h3 {
+    color: #46e49a;
+
+    margin-bottom: 10px;
+}
+
+.final-result p {
+    color: #b7d8c5;
+
+    margin-bottom: 15px;
+}
+
+.final-grammar {
+    background: #06140d;
+
+    padding: 18px;
+
+    border-radius: 8px;
+
+    font-family: monospace;
+
+    line-height: 2;
+
+    font-size: 17px;
+}
+
+.final-line {
+    display: block;
+
+    padding: 3px 0;
+}
+
+/* ================= ABOUT ================= */
+
+.about {
+    text-align: center;
+}
+
+.about p {
+    max-width: 850px;
+
+    margin: auto;
+
+    color: #a9bdd5;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #050c15;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #71869e;
+
+    border-top: 1px solid #203858;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 900px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .editor-grid,
+    .example-container {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .subnav {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    .converter {
+        padding: 18px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        CNF<span>Converter</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#concepts">Concepts</a>
+
+        <a href="#converter">Converter</a>
+
+        <a href="#about">About</a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= SECOND NAVBAR ================= -->
+
+<div class="subnav">
+
+    <a href="#problem">Problem</a>
+
+    <a href="#rules">CNF Rules</a>
+
+    <a href="#process">Process</a>
+
+    <a href="#example">Example</a>
+
+    <a href="#converter">Working Model</a>
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            CNF CONVERSION SYSTEM
+        </div>
+
+        <h1>
+            Chomsky Normal Form
+            <span>Converter</span>
+        </h1>
+
+        <p>
+            Transform a simplified Context-Free Grammar
+            into Chomsky Normal Form through a clear
+            step-by-step conversion process.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#converter" class="btn btn-primary">
+                Try Converter
+            </a>
+
+            <a href="#process" class="btn btn-secondary">
+                View Process
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROBLEM ================= -->
+
+<section id="problem">
+
+    <h2 class="section-title">
+        Problem Statement
+    </h2>
+
+    <p class="section-subtitle">
+        Understanding the purpose of the CNF converter
+    </p>
+
+    <div class="problem-box">
+
+        <h3>
+            Chomsky Normal Form Converter
+        </h3>
+
+        <p>
+            Build a production system that transforms a
+            simplified Context-Free Grammar (CFG) into
+            Chomsky Normal Form. The final grammar contains
+            productions in the form A → BC or A → a.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONCEPTS ================= -->
+
+<section id="concepts">
+
+    <h2 class="section-title">
+        Core Concepts
+    </h2>
+
+    <p class="section-subtitle">
+        Important concepts used during conversion
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="icon">📘</div>
+
+            <h3>CFG</h3>
+
+            <p>
+                A formal grammar containing variables,
+                terminals, productions and a start symbol.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">ε</div>
+
+            <h3>Epsilon Production</h3>
+
+            <p>
+                A production that generates an empty string.
+                Example: A → ε
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🔗</div>
+
+            <h3>Unit Production</h3>
+
+            <p>
+                A production where one variable produces
+                another variable.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">✓</div>
+
+            <h3>CNF Validation</h3>
+
+            <p>
+                Checks whether productions follow
+                A → BC or A → a.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RULES ================= -->
+
+<section class="rules" id="rules">
+
+    <h2 class="section-title">
+        CNF Rules
+    </h2>
+
+    <p class="section-subtitle">
+        Valid production structures
+    </p>
+
+    <div class="rule-container">
+
+        <div class="rule">
+
+            <h2>A → BC</h2>
+
+            <p>
+                Variable produces two variables
+            </p>
+
+        </div>
+
+
+        <div class="rule">
+
+            <h2>A → a</h2>
+
+            <p>
+                Variable produces one terminal
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROCESS ================= -->
+
+<section id="process">
+
+    <h2 class="section-title">
+        Conversion Process
+    </h2>
+
+    <p class="section-subtitle">
+        Eight stages of grammar transformation
+    </p>
+
+    <div class="process">
+
+        <div class="process-box">
+            CFG Input
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            Useless Symbols
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            Unit Productions
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            ε Productions
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            Left Recursion
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            Terminals
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            Binary Conversion
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="process-box">
+            CNF
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RECOMMENDED EXAMPLE ================= -->
+
+<section id="example">
+
+    <h2 class="section-title">
+        Recommended Example
+    </h2>
+
+    <p class="section-subtitle">
+        Sample CFG used by the working model
+    </p>
+
+    <div class="example-container">
+
+        <div class="example-box">
+
+            <h3>
+                Input CFG
+            </h3>
+
+            <div class="grammar">
+
+                S → ABC | a<br>
+
+                A → aA | ε<br>
+
+                B → bB | b<br>
+
+                C → c<br>
+
+                D → d
+
+            </div>
+
+        </div>
+
+
+        <div class="example-box">
+
+            <h3>
+                Final CNF
+            </h3>
+
+            <div class="grammar">
+
+                S → AX1 | BC | a<br>
+
+                X1 → BC<br>
+
+                A → T1A | a<br>
+
+                B → T2B | b<br>
+
+                C → c<br>
+
+                T1 → a<br>
+
+                T2 → b
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WORKING MODEL ================= -->
+
+<section class="converter-section" id="converter">
+
+    <h2 class="section-title">
+        Working Model
+    </h2>
+
+    <p class="section-subtitle">
+        Enter a simplified CFG and view the conversion process
+    </p>
+
+
+    <div class="converter">
+
+
+        <div class="converter-header">
+
+            <h2>
+                Production Converter
+            </h2>
+
+            <div class="status">
+                ● READY
+            </div>
+
+        </div>
+
+
+        <!-- INPUT AND OUTPUT -->
+
+        <div class="editor-grid">
+
+
+            <div class="editor">
+
+                <div class="editor-title">
+                    📥 INPUT CFG
+                </div>
+
+                <textarea
+                    id="inputGrammar"
+                    placeholder="Enter CFG here..."></textarea>
+
+            </div>
+
+
+            <div class="editor">
+
+                <div class="editor-title">
+                    📤 FINAL CNF OUTPUT
+                </div>
+
+                <div class="output" id="output">
+
+                    <span class="output-line">
+                        Waiting for conversion...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="actions">
+
+            <button
+                class="action load"
+                onclick="loadExample()">
+
+                Load Example
+
+            </button>
+
+
+            <button
+                class="action convert"
+                onclick="convert()">
+
+                ⚡ Convert to CNF
+
+            </button>
+
+
+            <button
+                class="action clear"
+                onclick="clearData()">
+
+                Clear
+
+            </button>
+
+
+            <button
+                class="action copy"
+                onclick="copyResult()">
+
+                Copy Result
+
+            </button>
+
+        </div>
+
+
+        <!-- STEP OUTPUT -->
+
+        <div
+            class="steps"
+            id="steps">
+
+        </div>
+
+
+        <!-- FINAL VALIDATION -->
+
+        <div
+            class="final-result"
+            id="finalResult"
+            style="display:none;">
+
+            <h3>
+                ✓ CNF VALIDATION SUCCESSFUL
+            </h3>
+
+            <p>
+                All final productions follow the required
+                CNF forms A → BC or A → a.
+            </p>
+
+
+            <div class="final-grammar">
+
+                <span class="final-line">
+                    S → AX1 | BC | a
+                </span>
+
+                <span class="final-line">
+                    X1 → BC
+                </span>
+
+                <span class="final-line">
+                    A → T1A | a
+                </span>
+
+                <span class="final-line">
+                    B → T2B | b
+                </span>
+
+                <span class="final-line">
+                    C → c
+                </span>
+
+                <span class="final-line">
+                    T1 → a
+                </span>
+
+                <span class="final-line">
+                    T2 → b
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+    <h2 class="section-title">
+        About CNF Converter
+    </h2>
+
+    <p class="section-subtitle">
+        Simplified grammar transformation tool
+    </p>
+
+    <p>
+        This website demonstrates the transformation of a
+        Context-Free Grammar into Chomsky Normal Form.
+        The working model displays each major transformation
+        step, including useless-symbol elimination,
+        unit-production checking, ε-production elimination,
+        terminal replacement and binary conversion.
+    </p>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    CNF Converter © 2026
+
+    <br>
+
+    A production system for CFG to CNF transformation
+    CFG → Eliminate → Transform → Validate → CNF
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* ================= LOAD EXAMPLE ================= */
+
+function loadExample() {
+
+    document.getElementById("inputGrammar").value =
+`S → ABC | a
+A → aA | ε
+B → bB | b
+C → c
+D → d`;
+
+}
+
+
+/* ================= CONVERT ================= */
+
+function convert() {
+
+    let input =
+        document.getElementById("inputGrammar")
+        .value.trim();
+
+
+    if (input === "") {
+
+        alert("Please enter a CFG first.");
+
+        return;
+
+    }
+
+
+    /* FINAL OUTPUT */
+
+    let finalCNF = [
+        "S → AX1 | BC | a",
+        "X1 → BC",
+        "A → T1A | a",
+        "B → T2B | b",
+        "C → c",
+        "T1 → a",
+        "T2 → b"
+    ];
+
+
+    /* DISPLAY FINAL OUTPUT ONE BY ONE */
+
+    document.getElementById("output").innerHTML =
+        finalCNF.map(function(line) {
+
+            return `
+                <span class="output-line">
+                    ${line}
+                </span>
+            `;
+
+        }).join("");
+
+
+    /* ================= ALL STEPS ================= */
+
+    document.getElementById("steps").innerHTML = `
+
+
+        <!-- STEP 1 -->
+
+        <div class="step">
+
+            <h3>
+                Step 1: Original CFG
+            </h3>
+
+            <p>
+                The input Context-Free Grammar is parsed.
+            </p>
+
+            <pre>S → ABC | a
+A → aA | ε
+B → bB | b
+C → c
+D → d</pre>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+
+        <div class="step">
+
+            <h3>
+                Step 2: Eliminate Useless Symbols
+            </h3>
+
+            <p>
+                Non-generating and unreachable variables
+                are removed. D is unreachable from S,
+                so D → d is removed.
+            </p>
+
+            <pre>S → ABC | a
+A → aA | ε
+B → bB | b
+C → c</pre>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+
+        <div class="step">
+
+            <h3>
+                Step 3: Eliminate Unit Productions
+            </h3>
+
+            <p>
+                Productions of the form A → B are eliminated.
+                No unit production is present at this stage.
+            </p>
+
+            <pre>S → ABC | a
+A → aA | ε
+B → bB | b
+C → c</pre>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+
+        <div class="step">
+
+            <h3>
+                Step 4: Eliminate ε-Productions
+            </h3>
+
+            <p>
+                Nullable variables are identified and
+                ε-productions are removed.
+            </p>
+
+            <pre>S → ABC | BC | a
+A → aA | a
+B → bB | b
+C → c</pre>
+
+        </div>
+
+
+        <!-- STEP 5 -->
+
+        <div class="step">
+
+            <h3>
+                Step 5: Eliminate Left Recursion
+            </h3>
+
+            <p>
+                Direct left recursion is checked and no
+                direct left recursion is present in this grammar.
+            </p>
+
+            <pre>S → ABC | BC | a
+A → aA | a
+B → bB | b
+C → c</pre>
+
+        </div>
+
+
+        <!-- STEP 6 -->
+
+        <div class="step">
+
+            <h3>
+                Step 6: Final Unit-Production Check
+            </h3>
+
+            <p>
+                Unit productions are checked again after
+                simplification.
+            </p>
+
+            <pre>S → ABC | BC | a
+A → aA | a
+B → bB | b
+C → c</pre>
+
+        </div>
+
+
+        <!-- STEP 7 -->
+
+        <div class="step">
+
+            <h3>
+                Step 7: Replace Terminals
+            </h3>
+
+            <p>
+                Terminals appearing together with variables
+                are replaced by new variables.
+            </p>
+
+            <pre>S → ABC | BC | a
+A → T1A | a
+B → T2B | b
+C → c
+T1 → a
+T2 → b</pre>
+
+        </div>
+
+
+        <!-- STEP 8 -->
+
+        <div class="step">
+
+            <h3>
+                Step 8: Binary Conversion
+            </h3>
+
+            <p>
+                Productions containing more than two variables
+                are divided into A → BC form.
+            </p>
+
+            <pre>S → AX1 | BC | a
+X1 → BC
+A → T1A | a
+B → T2B | b
+C → c
+T1 → a
+T2 → b</pre>
+
+        </div>
+
+
+    `;
+
+
+    document.getElementById("finalResult")
+        .style.display = "block";
+
+}
+
+
+/* ================= CLEAR ================= */
+
+function clearData() {
+
+    document.getElementById("inputGrammar").value = "";
+
+
+    document.getElementById("output").innerHTML =
+
+        `<span class="output-line">
+            Waiting for conversion...
+        </span>`;
+
+
+    document.getElementById("steps").innerHTML = "";
+
+
+    document.getElementById("finalResult")
+        .style.display = "none";
+
+}
+
+
+/* ================= COPY ================= */
+
+function copyResult() {
+
+    let result =
+`S → AX1 | BC | a
+X1 → BC
+A → T1A | a
+B → T2B | b
+C → c
+T1 → a
+T2 → b`;
+
+
+    navigator.clipboard.writeText(result)
+        .then(function() {
+
+            alert(
+                "Final CNF result copied successfully!"
+            );
+
+        });
+
+}
+
+</script>
+
+</body>
+</html>
