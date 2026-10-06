@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>CNF Converter</title>
 
 <style>
 
-/* ==============================
-   GLOBAL
-================================= */
+/* =========================
+   BASIC
+========================= */
 
 * {
     box-sizing: border-box;
@@ -19,61 +22,194 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     min-height: 100vh;
-    color: #172033;
 
     background:
-        radial-gradient(circle at 10% 20%, rgba(34,211,238,0.28), transparent 30%),
-        radial-gradient(circle at 90% 10%, rgba(139,92,246,0.28), transparent 30%),
-        linear-gradient(135deg, #eef9ff, #f5f0ff, #ecfeff);
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #ecfeff,
+            #f5f3ff
+        );
 
-    background-size: 200% 200%;
-    animation: bgMove 12s ease infinite;
+    color: #172033;
+
+    overflow-x: hidden;
 }
 
-@keyframes bgMove {
-    0% {
-        background-position: 0% 50%;
+
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(59,130,246,.18),
+            rgba(168,85,247,.18)
+        );
+
+    top: -180px;
+    left: -150px;
+
+    filter: blur(30px);
+
+    animation:
+        floating 7s ease-in-out infinite;
+
+    z-index: -1;
+}
+
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 400px;
+    height: 400px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(6,182,212,.15),
+            rgba(139,92,246,.15)
+        );
+
+    bottom: -150px;
+    right: -120px;
+
+    filter: blur(35px);
+
+    animation:
+        floating2 8s ease-in-out infinite;
+
+    z-index: -1;
+}
+
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translate(0,0);
     }
 
     50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
+        transform: translate(70px,50px);
     }
 }
 
 
-/* ==============================
+@keyframes floating2 {
+
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(-60px,-40px);
+    }
+}
+
+
+/* =========================
    HEADER
-================================= */
+========================= */
 
 header {
-    width: 100%;
-    padding: 28px 20px;
+
+    padding: 42px 20px;
+
     text-align: center;
 
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #0891b2,
-        #7c3aed
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4,
+            #7c3aed
+        );
 
     color: white;
 
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+    border-radius:
+        0 0 35px 35px;
 
-    animation: headerDrop 0.8s ease-out;
+    box-shadow:
+        0 12px 35px rgba(37,99,235,.25);
+
+    animation:
+        headerDrop .8s ease;
+
+    position: relative;
+
+    overflow: hidden;
 }
 
+
+header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 200%;
+    height: 100%;
+
+    left: -100%;
+
+    top: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.15),
+            transparent
+        );
+
+    animation:
+        shine 5s linear infinite;
+}
+
+
+@keyframes shine {
+
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
+
+
 @keyframes headerDrop {
+
     from {
         opacity: 0;
-        transform: translateY(-35px);
+        transform: translateY(-40px);
     }
 
     to {
@@ -82,87 +218,97 @@ header {
     }
 }
 
-header h1 {
-    font-size: 36px;
-    margin-bottom: 8px;
 
-    animation: titleGlow 2.5s ease-in-out infinite alternate;
+header h1 {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    position: relative;
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,.2);
+
+    animation:
+        titleGlow 2s ease-in-out infinite alternate;
 }
 
+
 @keyframes titleGlow {
+
     from {
-        text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        text-shadow:
+            0 3px 15px rgba(255,255,255,.1);
     }
 
     to {
-        text-shadow: 0 0 20px rgba(255,255,255,0.7);
+        text-shadow:
+            0 3px 25px rgba(255,255,255,.5);
     }
 }
+
 
 header p {
-    font-size: 16px;
-    opacity: 0.95;
-}
 
-.header-icon {
-    display: inline-block;
-    animation: floatIcon 2.5s ease-in-out infinite;
-}
+    margin-top: 10px;
 
-@keyframes floatIcon {
+    font-size: 17px;
 
-    0%, 100% {
-        transform: translateY(0);
-    }
+    opacity: .95;
 
-    50% {
-        transform: translateY(-7px);
-    }
+    position: relative;
 }
 
 
-/* ==============================
+/* =========================
    CONTAINER
-================================= */
+========================= */
 
 .container {
-    width: min(1100px, 92%);
+
+    width: 92%;
+
+    max-width: 1100px;
+
     margin: 35px auto 60px;
 }
 
 
-/* ==============================
-   CARDS
-================================= */
+/* =========================
+   CARD
+========================= */
 
 .card {
-    background: rgba(255,255,255,0.88);
 
-    backdrop-filter: blur(10px);
+    background:
+        rgba(255,255,255,.88);
 
-    border-radius: 18px;
+    backdrop-filter:
+        blur(10px);
 
-    padding: 25px;
+    border-radius: 22px;
+
+    padding: 28px;
 
     margin-bottom: 25px;
 
     box-shadow:
-        0 10px 30px rgba(31,41,55,0.10);
+        0 10px 35px rgba(15,23,42,.09);
 
-    border: 1px solid rgba(255,255,255,0.7);
+    border:
+        1px solid rgba(255,255,255,.8);
 
-    animation: cardAppear 0.7s ease-out both;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    animation:
+        cardAppear .7s ease;
 }
+
 
 @keyframes cardAppear {
 
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(25px);
     }
 
     to {
@@ -171,84 +317,83 @@ header p {
     }
 }
 
-.card:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 15px 35px rgba(31,41,55,0.15);
-}
 
 .card h2 {
+
     color: #2563eb;
-    margin-bottom: 8px;
-    font-size: 23px;
-}
 
-.card-description {
-    color: #64748b;
     margin-bottom: 18px;
+
+    font-size: 24px;
 }
 
 
-/* ==============================
+/* =========================
    TEXTAREA
-================================= */
+========================= */
 
 textarea {
+
     width: 100%;
-    min-height: 220px;
+
+    min-height: 180px;
 
     resize: vertical;
 
+    border: 2px solid #dbeafe;
+
+    border-radius: 15px;
+
     padding: 18px;
 
-    border-radius: 12px;
-
-    border: 2px solid #cbd5e1;
-
-    background: #f8fafc;
-
-    color: #172033;
-
-    font-family: "Courier New", monospace;
+    font-family:
+        "Courier New",
+        monospace;
 
     font-size: 16px;
 
-    line-height: 1.6;
+    line-height: 1.7;
+
+    background: #f8fbff;
+
+    color: #172033;
 
     outline: none;
 
-    transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.2s ease;
+    transition: .3s;
 }
+
 
 textarea:focus {
+
     border-color: #2563eb;
 
-    transform: scale(1.01);
-
     box-shadow:
-        0 0 0 4px rgba(37,99,235,0.12);
+        0 0 0 4px rgba(37,99,235,.1);
 }
 
 
-/* ==============================
+/* =========================
    BUTTONS
-================================= */
+========================= */
 
-.button-group {
+.buttons {
+
     display: flex;
-    gap: 12px;
+
+    gap: 14px;
+
     flex-wrap: wrap;
+
     margin-top: 18px;
 }
 
+
 button {
+
     border: none;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     padding: 13px 22px;
 
@@ -259,285 +404,154 @@ button {
     cursor: pointer;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.3s ease;
+        transform .25s,
+        box-shadow .25s;
+
+    color: white;
 }
+
 
 button:hover {
-    transform: translateY(-3px) scale(1.02);
+
+    transform:
+        translateY(-3px);
 
     box-shadow:
-        0 8px 20px rgba(0,0,0,0.18);
+        0 8px 20px rgba(0,0,0,.15);
 }
 
-button:active {
-    transform: scale(0.96);
-}
 
 .convert-btn {
-    color: white;
 
     background:
-        linear-gradient(135deg, #2563eb, #0891b2);
-
-    animation: buttonPulse 2.5s infinite;
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
 }
 
-@keyframes buttonPulse {
-
-    0%, 100% {
-        box-shadow:
-            0 5px 15px rgba(37,99,235,0.25);
-    }
-
-    50% {
-        box-shadow:
-            0 5px 25px rgba(37,99,235,0.55);
-    }
-}
-
-.example-btn {
-    color: white;
-    background: #7c3aed;
-}
 
 .clear-btn {
-    color: white;
-    background: #ef4444;
-}
-
-.download-btn {
-    color: white;
 
     background:
-        linear-gradient(135deg, #059669, #16a34a);
-
-    margin-top: 20px;
+        linear-gradient(
+            135deg,
+            #64748b,
+            #475569
+        );
 }
 
-.download-btn:hover {
-    letter-spacing: 0.5px;
+
+.download-btn {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #10b981
+        );
+
+    margin-top: 18px;
 }
 
 
-/* ==============================
+/* =========================
    STATUS
-================================= */
+========================= */
 
-.status {
+#status {
+
     display: none;
 
     margin-top: 18px;
 
-    padding: 13px 16px;
+    padding: 14px 18px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    background: #eff6ff;
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
 
     color: #1d4ed8;
 
-    border-left: 5px solid #2563eb;
+    font-weight: 700;
 
-    font-weight: 600;
-}
-
-
-/* ==============================
-   STEPS
-================================= */
-
-#stepsContainer {
-    display: none;
-}
-
-.step {
-    background: white;
-
-    border-radius: 15px;
-
-    padding: 20px;
-
-    margin-bottom: 18px;
-
-    border-left: 5px solid #2563eb;
-
-    box-shadow:
-        0 6px 18px rgba(0,0,0,0.08);
-
-    animation: stepSlide 0.6s ease-out both;
-}
-
-@keyframes stepSlide {
-
-    from {
-        opacity: 0;
-        transform: translateX(-35px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.step h3 {
-    color: #2563eb;
-    margin-bottom: 7px;
-}
-
-.step p {
-    color: #64748b;
-    margin-bottom: 13px;
-}
-
-
-/* ==============================
-   GRAMMAR BOX
-================================= */
-
-.grammar {
-    background: #111827;
-
-    color: white;
-
-    padding: 17px;
-
-    border-radius: 10px;
-
-    overflow-x: auto;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 16px;
-
-    line-height: 1.65;
-
-    box-shadow:
-        inset 0 0 20px rgba(0,0,0,0.2);
-}
-
-.grammar-line {
-    display: block;
-
-    width: 100%;
-
-    margin: 0;
-    padding: 0;
-
-    text-align: left;
-
-    white-space: nowrap;
-
-    font-family: "Courier New", monospace;
-}
-
-.variable {
-    color: #67e8f9;
-    font-weight: bold;
-}
-
-.arrow {
-    color: #facc15;
-    font-weight: bold;
-}
-
-.terminal {
-    color: #86efac;
-}
-
-.pipe {
-    color: #fbbf24;
-    font-weight: bold;
-}
-
-
-/* ==============================
-   FINAL CNF
-================================= */
-
-.final-cnf {
-    display: none;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ecfdf5,
-            #d1fae5
-        );
-
-    border: 2px solid #22c55e;
-
-    border-radius: 18px;
-
-    padding: 25px;
-
-    margin-top: 25px;
+    border-left:
+        5px solid #2563eb;
 
     animation:
-        finalAppear 0.8s ease-out,
-        finalGlow 2s ease-in-out infinite alternate;
+        statusPulse 1.2s ease-in-out infinite alternate;
 }
 
-@keyframes finalAppear {
 
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes finalGlow {
+@keyframes statusPulse {
 
     from {
         box-shadow:
-            0 0 8px rgba(34,197,94,0.15);
+            0 0 0 rgba(37,99,235,0);
     }
 
     to {
         box-shadow:
-            0 0 25px rgba(34,197,94,0.45);
+            0 0 18px rgba(37,99,235,.2);
     }
 }
 
-.final-cnf h2 {
-    color: #15803d;
-    margin-bottom: 15px;
+
+/* =========================
+   STEPS
+========================= */
+
+#stepsBox {
+
+    display: none;
 }
 
 
-/* ==============================
-   RULES
-================================= */
+.step {
 
-.rules {
+    opacity: 0;
+
+    transform:
+        translateY(35px);
+
     background:
         linear-gradient(
             135deg,
-            #fff7ed,
-            #ffedd5
+            #ffffff,
+            #f8fbff
         );
-
-    border: 2px solid #f97316;
 
     border-radius: 18px;
 
-    padding: 25px;
+    padding: 22px;
 
-    animation: rulesAppear 0.8s ease-out;
+    margin-bottom: 20px;
+
+    border-left:
+        6px solid #2563eb;
+
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.08);
+
+    transition:
+        all .7s ease;
+
+    animation:
+        stepAppear .7s ease forwards;
 }
 
-@keyframes rulesAppear {
+
+@keyframes stepAppear {
 
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(35px);
     }
 
     to {
@@ -546,86 +560,302 @@ button:active {
     }
 }
 
-.rules h2 {
-    color: #ea580c;
-    margin-bottom: 15px;
-}
 
-.rules ul {
-    padding-left: 22px;
-}
+.step h3 {
 
-.rules li {
-    margin-bottom: 10px;
-    line-height: 1.5;
+    color: #2563eb;
+
+    margin-bottom: 8px;
+
+    font-size: 20px;
 }
 
 
-/* ==============================
-   FOOTER
-================================= */
-
-footer {
-    text-align: center;
-
-    padding: 25px;
+.step p {
 
     color: #64748b;
 
-    animation: footerFade 1.2s ease;
+    margin-bottom: 15px;
+
+    line-height: 1.6;
 }
 
-@keyframes footerFade {
+
+/* =========================
+   ORIGINAL STEP
+========================= */
+
+.original-step {
+
+    border-left-color:
+        #7c3aed;
+}
+
+
+/* =========================
+   GRAMMAR BOX
+========================= */
+
+.grammar {
+
+    background:
+        #111827;
+
+    color:
+        #e2e8f0;
+
+    padding: 17px 20px;
+
+    border-radius: 13px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 16px;
+
+    line-height: 1.9;
+
+    overflow-x: auto;
+
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,.2);
+}
+
+
+/* Each production is on its own line */
+
+.grammar-line {
+
+    display: block;
+
+    white-space: nowrap;
+
+    animation:
+        grammarLine .5s ease both;
+}
+
+
+@keyframes grammarLine {
 
     from {
         opacity: 0;
+        transform: translateX(-12px);
     }
 
     to {
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
 
-/* ==============================
-   LOADING
-================================= */
-
-.loading {
-    display: inline-block;
-
-    width: 18px;
-    height: 18px;
-
-    border: 3px solid rgba(255,255,255,0.4);
-
-    border-top-color: white;
-
-    border-radius: 50%;
-
-    animation: spin 0.8s linear infinite;
-
-    vertical-align: middle;
-
-    margin-right: 7px;
+.grammar-line:nth-child(1) {
+    animation-delay: .05s;
 }
 
-@keyframes spin {
+.grammar-line:nth-child(2) {
+    animation-delay: .1s;
+}
 
-    to {
-        transform: rotate(360deg);
+.grammar-line:nth-child(3) {
+    animation-delay: .15s;
+}
+
+.grammar-line:nth-child(4) {
+    animation-delay: .2s;
+}
+
+.grammar-line:nth-child(5) {
+    animation-delay: .25s;
+}
+
+.grammar-line:nth-child(6) {
+    animation-delay: .3s;
+}
+
+.grammar-line:nth-child(7) {
+    animation-delay: .35s;
+}
+
+
+/* =========================
+   FINAL CNF
+========================= */
+
+#final {
+
+    display: none;
+
+    border-radius: 22px;
+
+    padding: 28px;
+
+    margin-top: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #f0fdf4,
+            #ecfeff
+        );
+
+    border:
+        2px solid #10b981;
+
+    box-shadow:
+        0 12px 35px rgba(16,185,129,.18);
+
+    animation:
+        finalCNF .9s ease;
+}
+
+
+@keyframes finalCNF {
+
+    0% {
+        opacity: 0;
+        transform: scale(.85);
+    }
+
+    70% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
 
-/* ==============================
-   MOBILE
-================================= */
+#final h2 {
 
-@media (max-width: 700px) {
+    color: #047857;
+
+    margin-bottom: 16px;
+}
+
+
+#finalGrammar {
+
+    background:
+        #064e3b;
+
+    color:
+        #ecfdf5;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 16px;
+
+    line-height: 1.9;
+
+    overflow-x: auto;
+}
+
+
+/* =========================
+   RULES
+========================= */
+
+.rules {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fffbeb
+        );
+
+    border:
+        2px solid #f59e0b;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+
+.rules h2 {
+
+    color: #b45309;
+
+    margin-bottom: 15px;
+}
+
+
+.rules p {
+
+    line-height: 1.8;
+
+    color: #78350f;
+}
+
+
+.rule {
+
+    margin:
+        10px 0;
+
+    padding:
+        10px 14px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    border-radius:
+        10px;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-weight: 700;
+
+    color: #92400e;
+}
+
+
+/* =========================
+   ERROR / MESSAGE
+========================= */
+
+#message {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:700px) {
 
     header h1 {
-        font-size: 28px;
+        font-size: 30px;
+    }
+
+    header p {
+        font-size: 14px;
     }
 
     .container {
@@ -633,10 +863,10 @@ footer {
     }
 
     .card {
-        padding: 18px;
+        padding: 20px;
     }
 
-    .button-group {
+    .buttons {
         flex-direction: column;
     }
 
@@ -647,13 +877,10 @@ footer {
     .grammar {
         font-size: 14px;
     }
-
-    .card:hover {
-        transform: none;
-    }
 }
 
 </style>
+
 </head>
 
 
@@ -666,38 +893,29 @@ footer {
 
 <header>
 
-    <h1>
-        <span class="header-icon">✨</span>
-        CNF Converter
-    </h1>
+    <h1>✨ CNF Converter</h1>
 
     <p>
-        Transform Context-Free Grammar into Chomsky Normal Form
+        Transform a Context-Free Grammar into
+        Chomsky Normal Form step by step
     </p>
 
 </header>
-
 
 
 <div class="container">
 
 
 <!-- =========================
-     INPUT CARD
+     INPUT
 ========================= -->
 
 <div class="card">
 
     <h2>📝 Enter Your Grammar</h2>
 
-    <p class="card-description">
-        Enter one production per line. Use → or -> for productions
-        and | for alternatives.
-    </p>
-
-
     <textarea
-        id="grammarInput"
+        id="input"
         placeholder="Example:
 
 S → ABC | a
@@ -708,21 +926,14 @@ D → d"
     ></textarea>
 
 
-    <div class="button-group">
+    <div class="buttons">
 
         <button
             class="convert-btn"
-            onclick="convertToCNF()"
+            id="convertBtn"
+            onclick="convert()"
         >
             ⚡ Convert to CNF
-        </button>
-
-
-        <button
-            class="example-btn"
-            onclick="loadExample()"
-        >
-            📚 Load Example
         </button>
 
 
@@ -736,13 +947,11 @@ D → d"
     </div>
 
 
-    <div
-        class="status"
-        id="status"
-    ></div>
+    <div id="status"></div>
+
+    <div id="message"></div>
 
 </div>
-
 
 
 <!-- =========================
@@ -751,36 +960,29 @@ D → d"
 
 <div
     class="card"
-    id="stepsContainer"
+    id="stepsBox"
 >
 
-    <h2>🔄 Conversion Steps</h2>
-
-    <p class="card-description">
-        The grammar is transformed step by step into CNF.
-    </p>
+    <h2>
+        🔄 Step-by-Step Conversion
+    </h2>
 
     <div id="steps"></div>
 
 </div>
 
 
-
 <!-- =========================
-     FINAL CNF
+     FINAL
 ========================= -->
 
-<div
-    class="final-cnf"
-    id="finalCNF"
->
+<div id="final">
 
-    <h2>✅ Final Chomsky Normal Form</h2>
+    <h2>
+        ✅ Final Chomsky Normal Form
+    </h2>
 
-    <div
-        class="grammar"
-        id="finalGrammar"
-    ></div>
+    <div id="finalGrammar"></div>
 
 
     <button
@@ -793,187 +995,124 @@ D → d"
 </div>
 
 
-
 <!-- =========================
      RULES
 ========================= -->
 
 <div class="rules">
 
-    <h2>📌 CNF Rules</h2>
-
-    <ul>
-
-        <li>
-            Every production must be of the form
-            <strong>A → BC</strong>
-        </li>
-
-        <li>
-            Or a production must be of the form
-            <strong>A → a</strong>
-        </li>
-
-        <li>
-            A and B/C are variables.
-        </li>
-
-        <li>
-            a is a terminal symbol.
-        </li>
-
-        <li>
-            Epsilon productions are removed.
-        </li>
-
-        <li>
-            Unit productions are removed.
-        </li>
-
-        <li>
-            Useless symbols are removed.
-        </li>
-
-        <li>
-            Productions containing more than two variables
-            are converted into binary productions.
-        </li>
-
-    </ul>
-
-</div>
-
-
-</div>
-
-
-<footer>
+    <h2>
+        📚 CNF Rules
+    </h2>
 
     <p>
-        ✨ CNF Converter | Context-Free Grammar Transformation
+        In Chomsky Normal Form, every production
+        must follow the allowed forms below.
     </p>
 
-</footer>
 
+    <div class="rule">
+        A → BC
+    </div>
+
+
+    <div class="rule">
+        A → a
+    </div>
+
+
+    <p>
+        Here, <b>A</b>, <b>B</b> and <b>C</b>
+        are variables/non-terminals and
+        <b>a</b> is a terminal.
+    </p>
+
+
+    <p style="margin-top:12px;">
+        The converter removes useless symbols,
+        unit productions and ε-productions,
+        removes left recursion, replaces terminals
+        and finally converts long productions into
+        binary productions.
+    </p>
+
+</div>
+
+
+</div>
 
 
 <script>
 
-/* ==========================================
-   GLOBAL DATA
-========================================== */
+/* =====================================================
+   UTILITY
+===================================================== */
 
-let helperCounter = 1;
+function sleep(ms) {
 
-
-/* ==========================================
-   ESCAPE HTML
-========================================== */
-
-function escapeHTML(text) {
-
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
 }
 
 
-/* ==========================================
-   TOKENIZE RHS
-========================================== */
+/* =====================================================
+   MESSAGE
+===================================================== */
 
-function tokenize(rhs, variables = []) {
+function msg(text, success = true) {
 
-    rhs = rhs.trim();
+    const box =
+        document.getElementById("message");
 
-    if (
-        rhs === "" ||
-        rhs === "ε" ||
-        rhs.toLowerCase() === "epsilon" ||
-        rhs.toLowerCase() === "eps"
-    ) {
-        return [];
+    box.style.display = "block";
+
+    box.textContent = text;
+
+    if (success) {
+
+        box.style.background = "#ecfdf5";
+
+        box.style.color = "#047857";
+
+    } else {
+
+        box.style.background = "#fef2f2";
+
+        box.style.color = "#b91c1c";
     }
-
-
-    /* If spaces exist, use them as separators */
-
-    if (/\s/.test(rhs)) {
-
-        return rhs
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-    }
-
-
-    /* Match known multi-character variables first */
-
-    if (variables.length > 0) {
-
-        const sortedVariables = [...variables]
-            .sort((a,b) => b.length - a.length);
-
-        let tokens = [];
-        let i = 0;
-
-        while (i < rhs.length) {
-
-            let matched = false;
-
-            for (const variable of sortedVariables) {
-
-                if (
-                    rhs.substring(i, i + variable.length)
-                    === variable
-                ) {
-
-                    tokens.push(variable);
-
-                    i += variable.length;
-
-                    matched = true;
-
-                    break;
-                }
-            }
-
-            if (!matched) {
-
-                tokens.push(rhs[i]);
-
-                i++;
-            }
-        }
-
-        return tokens;
-    }
-
-
-    return [...rhs];
 }
 
 
-/* ==========================================
-   PARSE GRAMMAR
-========================================== */
+/* =====================================================
+   STATUS
+===================================================== */
 
-function parseGrammar(text) {
+function status(text) {
+
+    const box =
+        document.getElementById("status");
+
+    box.style.display = "block";
+
+    box.textContent = text;
+}
+
+
+/* =====================================================
+   PARSE
+===================================================== */
+
+function parse(input) {
 
     const grammar = {};
 
-    const lines = text
+    const lines =
+        input
         .split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
+        .map(x => x.trim())
+        .filter(Boolean);
 
-
-    /* First find all variables */
-
-    const variables = [];
 
     for (const line of lines) {
 
@@ -981,39 +1120,13 @@ function parseGrammar(text) {
 
         if (line.includes("→")) {
 
-            parts = line.split("→");
+            parts =
+                line.split("→");
 
         } else if (line.includes("->")) {
 
-            parts = line.split("->");
-
-        } else {
-
-            continue;
-        }
-
-        const lhs = parts[0].trim();
-
-        if (lhs && !variables.includes(lhs)) {
-
-            variables.push(lhs);
-        }
-    }
-
-
-    /* Parse productions */
-
-    for (const line of lines) {
-
-        let parts;
-
-        if (line.includes("→")) {
-
-            parts = line.split("→");
-
-        } else if (line.includes("->")) {
-
-            parts = line.split("->");
+            parts =
+                line.split("->");
 
         } else {
 
@@ -1021,29 +1134,50 @@ function parseGrammar(text) {
         }
 
 
-        const lhs = parts[0].trim();
-
-        const rhsText = parts
-            .slice(1)
-            .join("→")
-            .trim();
+        const lhs =
+            parts[0].trim();
 
 
-        if (!grammar[lhs]) {
+        const rhsText =
+            parts
+                .slice(1)
+                .join("→")
+                .trim();
 
-            grammar[lhs] = [];
-        }
+
+        if (!lhs || !rhsText)
+            continue;
 
 
         const alternatives =
-            rhsText.split("|");
+            rhsText
+            .split("|")
+            .map(x => x.trim())
+            .filter(Boolean);
+
+
+        grammar[lhs] = [];
 
 
         for (const alt of alternatives) {
 
-            grammar[lhs].push(
-                tokenize(alt, variables)
-            );
+            if (
+                alt === "ε" ||
+                alt.toLowerCase() === "epsilon" ||
+                alt.toLowerCase() === "eps"
+            ) {
+
+                grammar[lhs].push([]);
+
+            } else {
+
+                grammar[lhs].push(
+                    tokenize(
+                        alt,
+                        Object.keys(grammar)
+                    )
+                );
+            }
         }
     }
 
@@ -1052,216 +1186,205 @@ function parseGrammar(text) {
 }
 
 
-/* ==========================================
-   CLONE GRAMMAR
-========================================== */
+/* =====================================================
+   TOKENIZE
+===================================================== */
 
-function cloneGrammar(grammar) {
+function tokenize(str, knownVariables = []) {
+
+    str = str.trim();
+
+    if (!str)
+        return [];
+
+
+    if (str.includes(" ")) {
+
+        return str
+            .split(/\s+/)
+            .filter(Boolean);
+    }
+
+
+    const sorted =
+        [...knownVariables]
+        .sort(
+            (a,b) =>
+                b.length - a.length
+        );
+
+
+    const result = [];
+
+    let i = 0;
+
+
+    while (i < str.length) {
+
+        let found = null;
+
+
+        for (const variable of sorted) {
+
+            if (
+                str.startsWith(
+                    variable,
+                    i
+                )
+            ) {
+
+                found = variable;
+
+                break;
+            }
+        }
+
+
+        if (found) {
+
+            result.push(found);
+
+            i += found.length;
+
+        } else {
+
+            result.push(
+                str[i]
+            );
+
+            i++;
+        }
+    }
+
+
+    return result;
+}
+
+
+/* =====================================================
+   COPY
+===================================================== */
+
+function copyGrammar(g) {
 
     const result = {};
 
-    for (const A of Object.keys(grammar)) {
+    for (const A in g) {
 
         result[A] =
-            grammar[A].map(rhs => [...rhs]);
+            g[A].map(
+                rhs => [...rhs]
+            );
     }
 
     return result;
 }
 
 
-/* ==========================================
-   FORMAT GRAMMAR
-========================================== */
+/* =====================================================
+   REMOVE DUPLICATES
+===================================================== */
 
-function formatGrammar(grammar) {
+function uniqueGrammar(g) {
 
-    let output = "";
+    const result = {};
 
-    for (const A of Object.keys(grammar)) {
+    for (const A in g) {
 
-        if (!grammar[A] || grammar[A].length === 0) {
+        const seen = new Set();
 
-            continue;
+        result[A] = [];
+
+
+        for (const rhs of g[A]) {
+
+            const key =
+                rhs.join("\u0001");
+
+
+            if (!seen.has(key)) {
+
+                seen.add(key);
+
+                result[A].push(
+                    [...rhs]
+                );
+            }
         }
-
-
-        const rhs = grammar[A]
-            .map(r =>
-                r.length === 0
-                    ? "ε"
-                    : r.join("")
-            )
-            .join(" | ");
-
-
-        output += A + " → " + rhs + "\n";
     }
 
-
-    return output.trim();
+    return result;
 }
 
 
-/* ==========================================
-   COLOR GRAMMAR
-========================================== */
+/* =====================================================
+   FORMAT
+===================================================== */
 
-function colorGrammar(text) {
+function fmt(g) {
 
-    const lines = text.split("\n");
-
-    return lines.map(line => {
-
-        if (!line.trim()) {
-            return "";
-        }
+    let html = "";
 
 
-        const parts = line.split("→");
+    for (const A in g) {
 
-
-        if (parts.length < 2) {
-
-            return `
-                <div class="grammar-line">
-                    ${escapeHTML(line)}
-                </div>
-            `;
-        }
-
-
-        const lhs =
-            escapeHTML(parts[0].trim());
-
-
-        const rhs =
-            parts.slice(1)
-                .join("→")
-                .trim();
-
-
-        let html = "";
-
-
-        html +=
-            `<span class="variable">${lhs}</span>`;
-
-
-        html +=
-            `<span class="arrow"> → </span>`;
+        if (!g[A].length)
+            continue;
 
 
         const alternatives =
-            rhs.split("|");
+            g[A].map(rhs => {
+
+                if (rhs.length === 0)
+                    return "ε";
+
+                return rhs.join(" ");
+
+            });
 
 
-        alternatives.forEach(
-            (alternative, index) => {
-
-                if (index > 0) {
-
-                    html +=
-                        `<span class="pipe"> | </span>`;
-                }
-
-
-                const symbols =
-                    tokenize(
-                        alternative,
-                        Object.keys(parseGrammar(text))
-                    );
+        html +=
+            `<div class="grammar-line">
+                <b>${escapeHTML(A)}</b>
+                → ${alternatives
+                    .map(escapeHTML)
+                    .join(" | ")}
+            </div>`;
+    }
 
 
-                for (const symbol of symbols) {
-
-                    if (
-                        Object.keys(
-                            parseGrammar(text)
-                        ).includes(symbol)
-                    ) {
-
-                        html +=
-                            `<span class="variable">${escapeHTML(symbol)}</span>`;
-
-                    } else if (symbol === "ε") {
-
-                        html +=
-                            `<span class="terminal">ε</span>`;
-
-                    } else {
-
-                        html +=
-                            `<span class="terminal">${escapeHTML(symbol)}</span>`;
-                    }
-                }
-
-            }
-        );
-
-
-        return `
-            <div class="grammar-line">
-                ${html}
-            </div>
-        `;
-
-    }).join("");
+    return html;
 }
 
 
-/* ==========================================
-   ADD STEP
-========================================== */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-function addStep(
-    title,
-    description,
-    grammar,
-    index
-) {
+function escapeHTML(text) {
 
-    const container =
-        document.getElementById("steps");
-
-
-    const step =
-        document.createElement("div");
-
-
-    step.className = "step";
-
-
-    step.style.animationDelay =
-        `${index * 0.12}s`;
-
-
-    step.innerHTML = `
-
-        <h3>${title}</h3>
-
-        <p>${description}</p>
-
-        <div class="grammar">
-            ${colorGrammar(grammar)}
-        </div>
-
-    `;
-
-
-    container.appendChild(step);
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-/* ==========================================
+/* =====================================================
    REMOVE USELESS SYMBOLS
-========================================== */
+===================================================== */
 
-function removeUseless(grammar) {
+function useless(g) {
+
+    g = copyGrammar(g);
 
     const variables =
-        Object.keys(grammar);
+        new Set(Object.keys(g));
 
+
+    /* Generating */
 
     const generating =
         new Set();
@@ -1275,68 +1398,62 @@ function removeUseless(grammar) {
         changed = false;
 
 
-        for (const A of variables) {
+        for (const A in g) {
 
-            for (const rhs of grammar[A]) {
+            for (const rhs of g[A]) {
 
-                let good = true;
+                if (rhs.length === 0) {
 
+                    if (!generating.has(A)) {
 
-                for (const symbol of rhs) {
+                        generating.add(A);
 
-                    if (
-                        variables.includes(symbol) &&
-                        !generating.has(symbol)
-                    ) {
-
-                        good = false;
-
-                        break;
+                        changed = true;
                     }
+
+                    continue;
                 }
 
 
-                if (good &&
-                    !generating.has(A)) {
+                const ok =
+                    rhs.every(
+                        s =>
+                            !variables.has(s) ||
+                            generating.has(s)
+                    );
+
+
+                if (
+                    ok &&
+                    !generating.has(A)
+                ) {
 
                     generating.add(A);
 
                     changed = true;
-
-                    break;
                 }
             }
         }
     }
 
 
-    const filtered = {};
+    const result = {};
 
 
-    for (const A of variables) {
+    for (const A in g) {
 
-        if (!generating.has(A)) {
-
+        if (!generating.has(A))
             continue;
-        }
 
 
-        filtered[A] = [];
-
-
-        for (const rhs of grammar[A]) {
-
-            if (
+        result[A] = g[A].filter(
+            rhs =>
                 rhs.every(
                     s =>
-                        !variables.includes(s) ||
+                        !variables.has(s) ||
                         generating.has(s)
                 )
-            ) {
-
-                filtered[A].push([...rhs]);
-            }
-        }
+        );
     }
 
 
@@ -1347,132 +1464,121 @@ function removeUseless(grammar) {
 
 
     const start =
-        Object.keys(filtered)[0];
+        Object.keys(result)[0];
 
 
-    if (!start) {
-        return {};
-    }
+    if (!start)
+        return result;
 
 
     reachable.add(start);
 
 
-    changed = true;
+    let queue = [start];
 
 
-    while (changed) {
+    while (queue.length) {
 
-        changed = false;
-
-
-        for (const A of [...reachable]) {
-
-            if (!filtered[A]) {
-                continue;
-            }
+        const A =
+            queue.shift();
 
 
-            for (const rhs of filtered[A]) {
+        for (const rhs of result[A] || []) {
 
-                for (const symbol of rhs) {
+            for (const s of rhs) {
 
-                    if (
-                        filtered[symbol] &&
-                        !reachable.has(symbol)
-                    ) {
+                if (
+                    result[s] &&
+                    !reachable.has(s)
+                ) {
 
-                        reachable.add(symbol);
+                    reachable.add(s);
 
-                        changed = true;
-                    }
+                    queue.push(s);
                 }
             }
         }
     }
 
 
-    const result = {};
+    const final = {};
 
 
-    for (const A of Object.keys(filtered)) {
+    for (const A in result) {
 
         if (reachable.has(A)) {
 
-            result[A] =
-                filtered[A].map(r => [...r]);
+            final[A] =
+                result[A];
         }
     }
 
 
-    return result;
+    return uniqueGrammar(final);
 }
 
 
-/* ==========================================
+/* =====================================================
    REMOVE UNIT PRODUCTIONS
-========================================== */
+===================================================== */
 
-function removeUnit(grammar) {
+function unit(g) {
+
+    g = copyGrammar(g);
 
     const variables =
-        Object.keys(grammar);
-
+        new Set(Object.keys(g));
 
     const result = {};
 
 
-    for (const A of variables) {
-
-        result[A] = [];
-
+    for (const A in g) {
 
         const closure =
             new Set([A]);
-
 
         const queue = [A];
 
 
         while (queue.length) {
 
-            const current =
+            const X =
                 queue.shift();
 
 
-            for (const rhs of grammar[current]) {
+            for (const rhs of g[X] || []) {
 
                 if (
                     rhs.length === 1 &&
-                    variables.includes(rhs[0])
+                    variables.has(rhs[0]) &&
+                    !closure.has(rhs[0])
                 ) {
 
-                    const B = rhs[0];
+                    closure.add(rhs[0]);
 
-
-                    if (!closure.has(B)) {
-
-                        closure.add(B);
-
-                        queue.push(B);
-                    }
+                    queue.push(rhs[0]);
                 }
             }
         }
 
 
-        for (const B of closure) {
+        result[A] = [];
 
-            for (const rhs of grammar[B]) {
+
+        for (const X of closure) {
+
+            for (const rhs of g[X] || []) {
 
                 if (
                     !(
                         rhs.length === 1 &&
-                        variables.includes(rhs[0])
+                        variables.has(rhs[0])
                     )
                 ) {
 
-                    result[A].push([...rhs]);
+                    result[A].push(
+                        [...rhs]
+                    );
                 }
             }
         }
@@ -1483,48 +1589,17 @@ function removeUnit(grammar) {
 }
 
 
-/* ==========================================
-   UNIQUE GRAMMAR
-========================================== */
+/* =====================================================
+   REMOVE EPSILON
+===================================================== */
 
-function uniqueGrammar(grammar) {
+function eps(g) {
 
-    const result = {};
+    g = copyGrammar(g);
 
+    const variables =
+        new Set(Object.keys(g));
 
-    for (const A of Object.keys(grammar)) {
-
-        result[A] = [];
-
-
-        const seen = new Set();
-
-
-        for (const rhs of grammar[A]) {
-
-            const key =
-                JSON.stringify(rhs);
-
-
-            if (!seen.has(key)) {
-
-                seen.add(key);
-
-                result[A].push([...rhs]);
-            }
-        }
-    }
-
-
-    return result;
-}
-
-
-/* ==========================================
-   NULLABLE SYMBOLS
-========================================== */
-
-function getNullable(grammar) {
 
     const nullable =
         new Set();
@@ -1538,9 +1613,9 @@ function getNullable(grammar) {
         changed = false;
 
 
-        for (const A of Object.keys(grammar)) {
+        for (const A in g) {
 
-            for (const rhs of grammar[A]) {
+            for (const rhs of g[A]) {
 
                 if (rhs.length === 0) {
 
@@ -1557,8 +1632,9 @@ function getNullable(grammar) {
 
                 if (
                     rhs.every(
-                        symbol =>
-                            nullable.has(symbol)
+                        s =>
+                            variables.has(s) &&
+                            nullable.has(s)
                     )
                 ) {
 
@@ -1574,92 +1650,78 @@ function getNullable(grammar) {
     }
 
 
-    return nullable;
-}
-
-
-/* ==========================================
-   REMOVE EPSILON
-========================================== */
-
-function removeEpsilon(grammar) {
-
-    const nullable =
-        getNullable(grammar);
-
-
     const result = {};
 
 
-    for (const A of Object.keys(grammar)) {
+    for (const A in g) {
 
         result[A] = [];
 
 
-        for (const rhs of grammar[A]) {
+        for (const rhs of g[A]) {
 
-            if (rhs.length === 0) {
+            if (rhs.length === 0)
                 continue;
-            }
 
 
-            const positions = [];
+            const positions =
+                [];
 
 
             rhs.forEach(
-                (symbol, index) => {
+                (s, i) => {
 
                     if (
-                        nullable.has(symbol)
+                        variables.has(s) &&
+                        nullable.has(s)
                     ) {
 
-                        positions.push(index);
+                        positions.push(i);
                     }
                 }
             );
 
 
-            const combinations =
-                1 << positions.length;
+            const count =
+                positions.length;
+
+
+            const total =
+                1 << count;
 
 
             for (
                 let mask = 0;
-                mask < combinations;
+                mask < total;
                 mask++
             ) {
 
-                const remove =
-                    new Set();
+                const newRhs = [];
 
 
-                for (
-                    let i = 0;
-                    i < positions.length;
-                    i++
-                ) {
+                rhs.forEach(
+                    (s, i) => {
 
-                    if (
-                        mask & (1 << i)
-                    ) {
+                        const pos =
+                            positions.indexOf(i);
 
-                        remove.add(
-                            positions[i]
-                        );
+
+                        if (
+                            pos === -1 ||
+                            !(mask & (1 << pos))
+                        ) {
+
+                            newRhs.push(s);
+                        }
                     }
-                }
-
-
-                const newRhs =
-                    rhs.filter(
-                        (_, index) =>
-                            !remove.has(index)
-                    );
+                );
 
 
                 if (newRhs.length > 0) {
 
-                    result[A].push(newRhs);
+                    result[A].push(
+                        newRhs
+                    );
                 }
             }
         }
@@ -1670,18 +1732,16 @@ function removeEpsilon(grammar) {
 }
 
 
-/* ==========================================
+/* =====================================================
    REMOVE LEFT RECURSION
-========================================== */
+===================================================== */
 
-function removeLeftRecursion(grammar) {
+function left(g) {
 
-    const result =
-        cloneGrammar(grammar);
-
+    g = copyGrammar(g);
 
     const variables =
-        Object.keys(result);
+        Object.keys(g);
 
 
     for (
@@ -1690,9 +1750,11 @@ function removeLeftRecursion(grammar) {
         i++
     ) {
 
-        const Ai =
+        const A =
             variables[i];
 
+
+        /* Indirect recursion */
 
         for (
             let j = 0;
@@ -1700,20 +1762,18 @@ function removeLeftRecursion(grammar) {
             j++
         ) {
 
-            const Aj =
+            const B =
                 variables[j];
 
 
-            const newProductions = [];
+            const newRules = [];
 
 
-            for (
-                const rhs of result[Ai]
-            ) {
+            for (const rhs of g[A]) {
 
                 if (
                     rhs.length > 0 &&
-                    rhs[0] === Aj
+                    rhs[0] === B
                 ) {
 
                     const rest =
@@ -1721,212 +1781,229 @@ function removeLeftRecursion(grammar) {
 
 
                     for (
-                        const delta of result[Aj]
+                        const beta of g[B]
                     ) {
 
-                        newProductions.push(
-                            [...delta, ...rest]
+                        newRules.push(
+                            [
+                                ...beta,
+                                ...rest
+                            ]
                         );
                     }
 
                 } else {
 
-                    newProductions.push(
-                        [...rhs]
+                    newRules.push(
+                        rhs
                     );
                 }
             }
 
 
-            result[Ai] =
-                newProductions;
+            g[A] = newRules;
         }
 
 
-        const alpha = [];
-        const beta = [];
+        /* Direct recursion */
+
+        const recursive = [];
+
+        const nonRecursive = [];
 
 
-        for (
-            const rhs of result[Ai]
-        ) {
+        for (const rhs of g[A]) {
 
             if (
                 rhs.length > 0 &&
-                rhs[0] === Ai
+                rhs[0] === A
             ) {
 
-                alpha.push(
+                recursive.push(
                     rhs.slice(1)
                 );
 
             } else {
 
-                beta.push(
+                nonRecursive.push(
                     rhs
                 );
             }
         }
 
 
-        if (alpha.length > 0) {
+        if (recursive.length > 0) {
 
-            let helper =
-                Ai + "'";
+            let newA = A + "'";
 
 
             while (
-                result[helper]
+                Object.prototype.hasOwnProperty.call(
+                    g,
+                    newA
+                )
             ) {
 
-                helper += "'";
+                newA += "'";
             }
 
 
-            result[helper] = [];
+            g[newA] = [];
 
 
-            result[Ai] = [];
+            g[A] =
+                nonRecursive.map(
+                    beta =>
+                        [
+                            ...beta,
+                            newA
+                        ]
+                );
 
 
-            for (
-                const b of beta
-            ) {
+            for (const alpha of recursive) {
 
-                result[Ai].push(
-                    [...b, helper]
+                g[newA].push(
+                    [
+                        ...alpha,
+                        newA
+                    ]
                 );
             }
 
 
-            for (
-                const a of alpha
-            ) {
-
-                result[helper].push(
-                    [...a, helper]
-                );
-            }
-
-
-            result[helper].push([]);
+            g[newA].push([]);
         }
     }
 
 
-    return result;
+    return uniqueGrammar(g);
 }
 
 
-/* ==========================================
+/* =====================================================
    REPLACE TERMINALS
-========================================== */
+===================================================== */
 
-function replaceTerminals(grammar) {
+function terms(g) {
 
-    const result =
-        cloneGrammar(grammar);
-
+    g = copyGrammar(g);
 
     const variables =
-        Object.keys(result);
-
-
-    let terminalCounter = 1;
-
-    const terminalMap = {};
-
-
-    for (const A of variables) {
-
-        result[A] =
-            result[A].map(rhs => {
-
-                if (rhs.length <= 1) {
-
-                    return [...rhs];
-                }
-
-
-                return rhs.map(symbol => {
-
-                    if (
-                        variables.includes(symbol)
-                    ) {
-
-                        return symbol;
-                    }
-
-
-                    if (!terminalMap[symbol]) {
-
-                        let helper =
-                            "T" + terminalCounter++;
-
-
-                        while (
-                            result[helper]
-                        ) {
-
-                            helper =
-                                "T" +
-                                terminalCounter++;
-                        }
-
-
-                        terminalMap[symbol] =
-                            helper;
-
-
-                        result[helper] = [
-                            [symbol]
-                        ];
-                    }
-
-
-                    return terminalMap[symbol];
-
-                });
-
-            });
-    }
-
-
-    return result;
-}
-
-
-/* ==========================================
-   BINARY CONVERSION
-========================================== */
-
-function binaryConversion(grammar) {
-
-    const result =
-        cloneGrammar(grammar);
+        new Set(Object.keys(g));
 
 
     let counter = 1;
 
 
-    const variables =
-        Object.keys(result);
+    const terminalMap = {};
 
 
-    for (const A of variables) {
+    for (const A in g) {
 
-        const productions =
-            result[A];
+        g[A] =
+            g[A].map(
+                rhs => {
+
+                    if (rhs.length <= 1)
+                        return rhs;
 
 
-        const newProductions = [];
+                    return rhs.map(
+                        symbol => {
+
+                            if (
+                                !variables.has(
+                                    symbol
+                                )
+                            ) {
+
+                                if (
+                                    !terminalMap[
+                                        symbol
+                                    ]
+                                ) {
+
+                                    let name;
+
+                                    do {
+
+                                        name =
+                                            "T" +
+                                            counter++;
+
+                                    } while (
+                                        variables.has(
+                                            name
+                                        ) ||
+                                        Object.prototype
+                                            .hasOwnProperty
+                                            .call(
+                                                terminalMap,
+                                                name
+                                            )
+                                    );
 
 
-        for (const rhs of productions) {
+                                    terminalMap[
+                                        symbol
+                                    ] = name;
+                                }
+
+
+                                return terminalMap[
+                                    symbol
+                                ];
+                            }
+
+
+                            return symbol;
+                        }
+                    );
+                }
+            );
+    }
+
+
+    for (
+        const terminal in terminalMap
+    ) {
+
+        g[
+            terminalMap[terminal]
+        ] = [
+            [terminal]
+        ];
+    }
+
+
+    return uniqueGrammar(g);
+}
+
+
+/* =====================================================
+   BINARY CONVERSION
+===================================================== */
+
+function binary(g) {
+
+    g = copyGrammar(g);
+
+    const result = {};
+
+    let counter = 1;
+
+
+    for (const A in g) {
+
+        result[A] = [];
+
+
+        for (const rhs of g[A]) {
 
             if (rhs.length <= 2) {
 
-                newProductions.push(
+                result[A].push(
                     [...rhs]
                 );
 
@@ -1934,9 +2011,7 @@ function binaryConversion(grammar) {
             }
 
 
-            let currentLeft =
-                A;
-
+            let currentA = A;
 
             let symbols =
                 [...rhs];
@@ -1944,84 +2019,83 @@ function binaryConversion(grammar) {
 
             while (symbols.length > 2) {
 
-                let helper =
-                    "X" + counter++;
-
-
-                while (
-                    result[helper] ||
-                    Object.keys(result)
-                        .includes(helper)
-                ) {
-
-                    helper =
-                        "X" + counter++;
-                }
-
-
                 const first =
                     symbols.shift();
 
 
-                const production =
-                    [first, helper];
+                let newVariable;
+
+                do {
+
+                    newVariable =
+                        "X" +
+                        counter++;
+
+                } while (
+                    Object.prototype
+                        .hasOwnProperty
+                        .call(
+                            g,
+                            newVariable
+                        ) ||
+                    Object.prototype
+                        .hasOwnProperty
+                        .call(
+                            result,
+                            newVariable
+                        )
+                );
 
 
-                if (
-                    currentLeft === A
-                ) {
+                if (!result[currentA]) {
 
-                    newProductions.push(
-                        production
-                    );
-
-                } else {
-
-                    result[currentLeft] =
-                        [production];
+                    result[currentA] = [];
                 }
 
 
-                currentLeft =
-                    helper;
+                result[currentA].push(
+                    [
+                        first,
+                        newVariable
+                    ]
+                );
 
 
-                result[helper] = [];
+                currentA =
+                    newVariable;
 
 
-                symbols =
-                    [...symbols];
+                if (!result[currentA]) {
+
+                    result[currentA] = [];
+                }
             }
 
 
-            result[currentLeft] = [
+            result[currentA].push(
                 [...symbols]
-            ];
+            );
         }
-
-
-        result[A] =
-            newProductions;
     }
 
 
-    return result;
+    return uniqueGrammar(result);
 }
 
 
-/* ==========================================
-   VALIDATE CNF
-========================================== */
+/* =====================================================
+   CNF VALIDATION
+===================================================== */
 
-function validateCNF(grammar) {
+function validateCNF(g) {
 
     const variables =
-        Object.keys(grammar);
+        new Set(Object.keys(g));
 
 
-    for (const A of variables) {
+    for (const A in g) {
 
-        for (const rhs of grammar[A]) {
+        for (const rhs of g[A]) {
 
             if (rhs.length === 0) {
 
@@ -2032,17 +2106,19 @@ function validateCNF(grammar) {
             if (rhs.length === 1) {
 
                 if (
-                    variables.includes(rhs[0])
+                    variables.has(rhs[0])
                 ) {
 
                     return false;
                 }
+            }
 
-            } else if (rhs.length === 2) {
+
+            else if (rhs.length === 2) {
 
                 if (
-                    !variables.includes(rhs[0]) ||
-                    !variables.includes(rhs[1])
+                    !variables.has(rhs[0]) ||
+                    !variables.has(rhs[1])
                 ) {
 
                     return false;
@@ -2060,209 +2136,377 @@ function validateCNF(grammar) {
 }
 
 
-/* ==========================================
-   CONVERT TO CNF
-========================================== */
+/* =====================================================
+   ADD STEP
+===================================================== */
 
-function convertToCNF() {
+async function showStep(
+    title,
+    description,
+    grammar,
+    original = false
+) {
+
+    const step =
+        document.createElement("div");
+
+
+    step.className =
+        "step";
+
+
+    if (original) {
+
+        step.classList.add(
+            "original-step"
+        );
+    }
+
+
+    step.innerHTML = `
+
+        <h3>${title}</h3>
+
+        <p>${description}</p>
+
+        <div class="grammar">
+
+            ${fmt(grammar)}
+
+        </div>
+    `;
+
+
+    const steps =
+        document.getElementById(
+            "steps"
+        );
+
+
+    steps.appendChild(step);
+
+
+    requestAnimationFrame(() => {
+
+        step.style.opacity = "1";
+
+        step.style.transform =
+            "translateY(0)";
+    });
+
+
+    setTimeout(() => {
+
+        step.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 100);
+
+
+    await sleep(1500);
+}
+
+
+/* =====================================================
+   MAIN CONVERSION
+===================================================== */
+
+async function convert() {
 
     const input =
         document
-            .getElementById("grammarInput")
-            .value.trim();
+        .getElementById("input")
+        .value
+        .trim();
 
 
     if (!input) {
 
-        showStatus(
+        msg(
             "⚠ Please enter a grammar first.",
-            "error"
+            false
         );
 
         return;
     }
 
 
+    const button =
+        document.getElementById(
+            "convertBtn"
+        );
+
+
     try {
 
-        helperCounter = 1;
+        button.disabled = true;
 
+        button.style.opacity = ".6";
 
-        let grammar =
-            parseGrammar(input);
-
-
-        if (
-            Object.keys(grammar).length === 0
-        ) {
-
-            showStatus(
-                "⚠ Invalid grammar format.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        const steps =
-            document.getElementById(
-                "steps"
-            );
-
-
-        steps.innerHTML = "";
+        button.textContent =
+            "⏳ Converting...";
 
 
         document.getElementById(
-            "stepsContainer"
+            "steps"
+        ).innerHTML = "";
+
+
+        document.getElementById(
+            "stepsBox"
         ).style.display = "block";
 
 
         document.getElementById(
-            "finalCNF"
+            "final"
         ).style.display = "none";
 
 
-        /* Step 1 */
-
-        addStep(
-            "Step 1: Original CFG",
-            "The input grammar is taken as the original context-free grammar.",
-            formatGrammar(grammar),
-            0
-        );
+        const grammar =
+            parse(input);
 
 
-        /* Step 2 */
+        if (
+            Object.keys(grammar)
+            .length === 0
+        ) {
 
-        grammar =
-            removeUseless(grammar);
-
-
-        addStep(
-            "Step 2: Remove Useless Symbols",
-            "Unreachable and non-generating symbols are removed from the grammar.",
-            formatGrammar(grammar),
-            1
-        );
-
-
-        /* Step 3 */
-
-        grammar =
-            removeUnit(grammar);
-
-
-        addStep(
-            "Step 3: Remove Unit Productions",
-            "Productions of the form A → B are removed.",
-            formatGrammar(grammar),
-            2
-        );
-
-
-        /* Step 4 */
-
-        grammar =
-            removeEpsilon(grammar);
-
-
-        addStep(
-            "Step 4: Remove ε-Productions",
-            "Nullable variables are eliminated and the required alternatives are generated.",
-            formatGrammar(grammar),
-            3
-        );
-
-
-        /* Step 5 */
-
-        grammar =
-            removeLeftRecursion(grammar);
-
-
-        addStep(
-            "Step 5: Remove Left Recursion",
-            "Direct and indirect left recursion are removed.",
-            formatGrammar(grammar),
-            4
-        );
-
-
-        /* Step 6 */
-
-        grammar =
-            replaceTerminals(grammar);
-
-
-        addStep(
-            "Step 6: Replace Terminals",
-            "Terminals occurring with variables are replaced by new helper variables.",
-            formatGrammar(grammar),
-            5
-        );
-
-
-        /* Step 7 */
-
-        grammar =
-            binaryConversion(grammar);
-
-
-        addStep(
-            "Step 7: Binary Conversion",
-            "Productions containing more than two symbols are converted into binary productions.",
-            formatGrammar(grammar),
-            6
-        );
-
-
-        /* Final */
-
-        const valid =
-            validateCNF(grammar);
-
-
-        if (!valid) {
-
-            showStatus(
-                "⚠ Conversion completed, but the generated grammar requires further normalization.",
-                "error"
-            );
-
-        } else {
-
-            showStatus(
-                "✓ Grammar successfully converted into CNF.",
-                "success"
+            throw new Error(
+                "Invalid grammar format."
             );
         }
+
+
+        /* =====================
+           STEP 1
+        ===================== */
+
+        status(
+            "🔵 Step 1 / 7 — Reading original CFG..."
+        );
+
+
+        await showStep(
+
+            "Step 1: Original CFG",
+
+            "📌 The input Context-Free Grammar is loaded.",
+
+            grammar,
+
+            true
+        );
+
+
+        /* =====================
+           STEP 2
+        ===================== */
+
+        status(
+            "🧹 Step 2 / 7 — Removing useless symbols..."
+        );
+
+
+        let current =
+            useless(grammar);
+
+
+        await showStep(
+
+            "Step 2: Remove Useless Symbols",
+
+            "🧹 Unreachable and non-generating symbols are removed.",
+
+            current
+        );
+
+
+        /* =====================
+           STEP 3
+        ===================== */
+
+        status(
+            "🔗 Step 3 / 7 — Removing unit productions..."
+        );
+
+
+        current =
+            unit(current);
+
+
+        await showStep(
+
+            "Step 3: Remove Unit Productions",
+
+            "🔗 Productions such as A → B are removed using unit-production closure.",
+
+            current
+        );
+
+
+        /* =====================
+           STEP 4
+        ===================== */
+
+        status(
+            "✂ Step 4 / 7 — Removing ε-productions..."
+        );
+
+
+        current =
+            eps(current);
+
+
+        await showStep(
+
+            "Step 4: Remove ε-Productions",
+
+            "✂ Nullable variables are identified and the required alternatives are generated.",
+
+            current
+        );
+
+
+        /* =====================
+           STEP 5
+        ===================== */
+
+        status(
+            "🔄 Step 5 / 7 — Removing left recursion..."
+        );
+
+
+        current =
+            left(current);
+
+
+        await showStep(
+
+            "Step 5: Remove Left Recursion",
+
+            "🔄 Direct and indirect left recursion are removed.",
+
+            current
+        );
+
+
+        /* =====================
+           STEP 6
+        ===================== */
+
+        status(
+            "🔤 Step 6 / 7 — Replacing terminals..."
+        );
+
+
+        current =
+            terms(current);
+
+
+        await showStep(
+
+            "Step 6: Replace Terminals",
+
+            "🔤 Terminals occurring inside longer productions are replaced with helper variables.",
+
+            current
+        );
+
+
+        /* =====================
+           STEP 7
+        ===================== */
+
+        status(
+            "🔢 Step 7 / 7 — Performing binary conversion..."
+        );
+
+
+        current =
+            binary(current);
+
+
+        await showStep(
+
+            "Step 7: Binary Conversion",
+
+            "🔢 Productions containing more than two symbols are divided into binary productions.",
+
+            current
+        );
+
+
+        /* =====================
+           FINAL
+        ===================== */
+
+        status(
+            "✨ Conversion completed successfully!"
+        );
+
+
+        await sleep(700);
+
+
+        const final =
+            document.getElementById(
+                "final"
+            );
 
 
         document.getElementById(
             "finalGrammar"
         ).innerHTML =
-            colorGrammar(
-                formatGrammar(grammar)
+            fmt(current);
+
+
+        final.style.display =
+            "block";
+
+
+        final.style.opacity =
+            "0";
+
+
+        final.style.transform =
+            "scale(.85)";
+
+
+        requestAnimationFrame(() => {
+
+            final.style.transition =
+                "all .8s ease";
+
+            final.style.opacity =
+                "1";
+
+            final.style.transform =
+                "scale(1)";
+        });
+
+
+        final.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+
+        if (validateCNF(current)) {
+
+            msg(
+                "✅ Final grammar satisfies CNF rules.",
+                true
             );
 
+        } else {
 
-        setTimeout(() => {
-
-            document.getElementById(
-                "finalCNF"
-            ).style.display = "block";
-
-
-            document.getElementById(
-                "finalCNF"
-            ).scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 500);
+            msg(
+                "⚠ Conversion completed, but the resulting grammar needs verification.",
+                false
+            );
+        }
 
 
     } catch (error) {
@@ -2270,94 +2514,33 @@ function convertToCNF() {
         console.error(error);
 
 
-        showStatus(
-            "⚠ Error while converting grammar: " +
+        msg(
+            "⚠ Error: " +
             error.message,
-            "error"
+            false
         );
+
+
+    } finally {
+
+        button.disabled = false;
+
+        button.style.opacity = "1";
+
+        button.textContent =
+            "⚡ Convert to CNF";
     }
 }
 
 
-/* ==========================================
-   STATUS MESSAGE
-========================================== */
-
-function showStatus(
-    message,
-    type
-) {
-
-    const status =
-        document.getElementById(
-            "status"
-        );
-
-
-    status.style.display = "block";
-
-
-    status.innerHTML =
-        message;
-
-
-    if (type === "success") {
-
-        status.style.background =
-            "#ecfdf5";
-
-        status.style.color =
-            "#15803d";
-
-        status.style.borderLeftColor =
-            "#22c55e";
-
-    } else {
-
-        status.style.background =
-            "#fef2f2";
-
-        status.style.color =
-            "#b91c1c";
-
-        status.style.borderLeftColor =
-            "#ef4444";
-    }
-}
-
-
-/* ==========================================
-   LOAD EXAMPLE
-========================================== */
-
-function loadExample() {
-
-    document.getElementById(
-        "grammarInput"
-    ).value =
-
-`S → ABC | a
-A → aA | ε
-B → bB | b
-C → c
-D → d`;
-
-
-    showStatus(
-        "✓ Example grammar loaded.",
-        "success"
-    );
-}
-
-
-/* ==========================================
+/* =====================================================
    CLEAR
-========================================== */
+===================================================== */
 
 function clearAll() {
 
     document.getElementById(
-        "grammarInput"
+        "input"
     ).value = "";
 
 
@@ -2367,24 +2550,29 @@ function clearAll() {
 
 
     document.getElementById(
-        "stepsContainer"
+        "stepsBox"
     ).style.display = "none";
 
 
     document.getElementById(
-        "finalCNF"
+        "final"
     ).style.display = "none";
 
 
     document.getElementById(
         "status"
     ).style.display = "none";
+
+
+    document.getElementById(
+        "message"
+    ).style.display = "none";
 }
 
 
-/* ==========================================
+/* =====================================================
    DOWNLOAD APP
-========================================== */
+===================================================== */
 
 function downloadApp() {
 
@@ -2397,7 +2585,8 @@ function downloadApp() {
         new Blob(
             [html],
             {
-                type: "text/html"
+                type:
+                    "text/html;charset=utf-8"
             }
         );
 
@@ -2406,45 +2595,39 @@ function downloadApp() {
         URL.createObjectURL(blob);
 
 
-    const link =
+    const a =
         document.createElement("a");
 
 
-    link.href = url;
+    a.href = url;
 
-    link.download =
+    a.download =
         "CNF_Converter.html";
 
 
-    document.body.appendChild(link);
+    document.body.appendChild(a);
 
-    link.click();
+    a.click();
 
-    document.body.removeChild(link);
+    document.body.removeChild(a);
 
 
     URL.revokeObjectURL(url);
 }
 
 
-/* ==========================================
-   AUTO LOAD EXAMPLE
-========================================== */
+/* =====================================================
+   DEFAULT EXAMPLE
+===================================================== */
 
-window.addEventListener(
-    "load",
-    () => {
-
-        setTimeout(() => {
-
-            document
-                .querySelector(".card")
-                ?.classList.add("loaded");
-
-        }, 200);
-
-    }
-);
+document.getElementById(
+    "input"
+).value =
+`S → ABC | a
+A → aA | ε
+B → bB | b
+C → c
+D → d`;
 
 </script>
 
