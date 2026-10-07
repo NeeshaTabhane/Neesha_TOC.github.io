@@ -1,0 +1,21 @@
+{
+  "name": "CNF Converter",
+  "short_name": "CNF Converter",
+  "id": "./index.html",
+  "description": "A step-by-step Chomsky Normal Form Converter",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
